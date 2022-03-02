@@ -9,11 +9,11 @@ class ExampleController extends Controller {
     super(app, modelName)
 
     this.setRoutes({
-      index: '/index',
-      show: '/show/:id',
-      store: '/store',
-      update: '/update/:id',
-      remove: '/remove/:id'
+      index: '/commands/index',
+      show: '/commands/show/:id',
+      store: '/commands/store',
+      update: '/commands/update/:id',
+      remove: '/commands/remove/:id'
     })
   }
 
