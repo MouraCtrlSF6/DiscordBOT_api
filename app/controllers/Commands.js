@@ -4,7 +4,7 @@ const Controller = execController()
 
 const CommandsModel = new Model('commands', 'id')
 
-class ExampleController extends Controller {
+class CommandsController extends Controller {
   constructor(app, modelName) {
     super(app, modelName)
 
@@ -20,4 +20,4 @@ class ExampleController extends Controller {
   routes() {}
 }
 
-module.exports = app => new ExampleController(app, CommandsModel).routes()
+module.exports = app => new CommandsController(app, CommandsModel).routes()
