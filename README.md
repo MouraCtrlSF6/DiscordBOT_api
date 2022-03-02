@@ -1,2 +1,2 @@
-# Generic_API
-An API made for learning means, but also to be useful in general aplications that require an API.
+# Discord_BOT_api
+An API for project: Discord_BOT

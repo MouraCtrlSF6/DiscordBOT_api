@@ -9,11 +9,11 @@ class FileLister {
     const files = fs.readdirSync(directory)
 
     const listData = files.map(file => {
-      const fileData = fs.statSync(`${directory}\\${file}`)
+      const fileData = fs.statSync(`${directory}/${file}`)
       let filesInside = 'none'
 
       if(fileData.isDirectory()) 
-        filesInside = this.listAll(`${directory}\\${file}\\`)
+        filesInside = this.listAll(`${directory}/${file}/`)
 
       return {
         name: file,
@@ -40,6 +40,6 @@ class FileLister {
   }
 }
 
-const path = `${__dirname}\\migrationList`
+const path = `${__dirname}/migrationList`
 module.exports = new FileLister(path).requireFilesOnDir()
 
