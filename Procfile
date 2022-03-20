@@ -1,1 +1,1 @@
-web: node ./database/index.js runAll && nodemon index.js
+web: node ./database/index.js runAll && node index.js
