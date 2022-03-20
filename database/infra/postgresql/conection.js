@@ -1,6 +1,6 @@
 require('dotenv').config()
 const { Pool: Conection } = require('pg')
-const SSL = process.env.SSL_ENABLE
+const SSL = eval(process.env.SSL_ENABLE)
 const config = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
