@@ -42,8 +42,8 @@ class Controller {
   
     this.app.route(this.getRoute('show')).get(async (request, response) => {
       try {
-        const identifier = request.params[this.mainIdentifier]
-        const getOne = await this.Model.show(identifier)
+        const { params } = request
+        const getOne = await this.Model.show(params)
   
         if(!getOne.rowCount) 
           return response
@@ -79,10 +79,9 @@ class Controller {
   
     this.app.route(this.getRoute('update')).patch(async (request, response) => {
       try {
-        const payload = request.body
-        const identifier = request.params[this.mainIdentifier]
-  
-        await this.Model.update(payload, identifier)
+        const { params, body: payload } = request
+        await this.Model.update(payload, params)
+
         return response
           .status(200)
           .json({status: 200, data: 'Data row successfully updated'})
@@ -96,8 +95,8 @@ class Controller {
     
     this.app.route(this.getRoute('remove')).delete(async (request, response) => {
       try {
-        const identifier = request.params[this.mainIdentifier]
-        const removedItem = await this.Model.remove(identifier)
+        const { params } = request
+        const removedItem = await this.Model.remove(params)
         if(!removedItem.rowCount) 
           return response
             .status(404)

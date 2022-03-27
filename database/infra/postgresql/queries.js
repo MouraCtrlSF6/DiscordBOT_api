@@ -49,12 +49,24 @@ class PostgreSQLQueries {
       })
   } 
 
-  update(tableName, queryData) {
+  update(tableName, set, where) {
     return new Promise((resolve, reject) => {
       const sql = `
         UPDATE ${tableName}
-        SET ${queryData.updatedColumn} = '${queryData[queryData.updatedColumn]}'
-        WHERE ${queryData.mainIdentifier} = '${queryData[queryData.mainIdentifier]}'
+        SET ${
+          Object.keys(set).reduce((group, key) => {
+            return !!group.length
+              ? `${group}, ${key} = '${set[key]}'`
+              : `${key} = '${set[key]}'`
+          }, '')
+        }
+        WHERE ${
+          Object.keys(where).reduce((group, field) => {
+            return group.length 
+              ? `${group} AND ${field} = '${where[field]}'`
+              : `${field} = '${where[field]}'`
+          }, '')
+        }
       `
       this.queryBuilder(sql)
         .then(data => resolve(data))
@@ -62,11 +74,17 @@ class PostgreSQLQueries {
     })
   }
 
-  remove(tableName, queryData) {
+  remove(tableName, where) {
     return new Promise((resolve, reject) => {
       const sql = `
         DELETE FROM ${tableName} 
-        WHERE ${queryData.mainIdentifier} = '${queryData[queryData.mainIdentifier]}'
+        WHERE ${
+          Object.keys(where).reduce((group, field) => {
+            return group.length 
+              ? `${group} AND ${field} = '${where[field]}'`
+              : `${field} = '${where[field]}'`
+          }, '')
+        }
       `
       this.queryBuilder(sql)
         .then(data => resolve(data))
@@ -74,11 +92,17 @@ class PostgreSQLQueries {
     })
   }
 
-  show(tableName, queryData){
+  show(tableName, where){
     return new Promise((resolve, reject) => {
       const sql = `
         SELECT * FROM ${tableName} 
-        WHERE ${queryData.mainIdentifier} = '${queryData[queryData.mainIdentifier]}'
+        WHERE ${
+          Object.keys(where).reduce((group, field) => {
+            return group.length 
+              ? `${group} AND ${field} = '${where[field]}'`
+              : `${field} = '${where[field]}'`
+          }, '')
+        }
       `
       this.queryBuilder(sql)
         .then(data => resolve(data))

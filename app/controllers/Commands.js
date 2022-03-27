@@ -2,7 +2,7 @@ const Model = require('../../app/models/Model')
 const execController = require('../../app/controllers/Controller')
 const Controller = execController()
 
-const CommandsModel = new Model('commands', 'id')
+const CommandsModel = new Model('commands')
 
 class CommandsController extends Controller {
   constructor(app, modelName) {

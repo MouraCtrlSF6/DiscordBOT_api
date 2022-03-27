@@ -2,7 +2,7 @@ const Model = require('../../app/models/Model')
 const execController = require('../../app/controllers/Controller')
 const Controller = execController()
 
-const ServersModel = new Model('servers', 'guild_id')
+const ServersModel = new Model('servers')
 
 class ServersController extends Controller {
   constructor(app, modelName) {

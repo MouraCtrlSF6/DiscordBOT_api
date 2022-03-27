@@ -19,6 +19,13 @@ class DataValidator {
         description: `Validation failed on fields: ${validation} .`
       },
       {
+        name: 'showData',
+        valid: !validation.length,
+        status: 400,
+        errorsOn: validation,
+        description: `Validation failed on fields: ${validation} .`
+      },  
+      {
         name: 'ERROR',
         valid: false,
         status: 500,
@@ -59,6 +66,22 @@ class DataValidator {
       })
 
       return this.validationResult('updateData', validation)
+    } catch(error) {
+      return this.validationResult('ERROR', error)
+    }
+  }
+
+  async validateShowData(tableName, payload) {
+    try {
+      const tableColumns = await Database.getColumns(tableName)
+      const payloadKeys = Object.keys(payload)
+  
+      const validation = payloadKeys.filter(key => {
+        if(!tableColumns.includes(key)) 
+          return key
+      })
+
+      return this.validationResult('showData', validation)
     } catch(error) {
       return this.validationResult('ERROR', error)
     }
