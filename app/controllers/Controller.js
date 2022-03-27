@@ -24,6 +24,15 @@ class Controller {
     }
     this.runDefault()
   }
+  
+  overrides(route) {
+    this.app._router.stack = this.app._router.stack.filter((layer) => {
+      if(!layer.route) {
+        return layer
+      }
+      return layer.route.path !== route
+    })
+  }
 
   runDefault() {
     this.app.route(this.getRoute('index')).get(async (request, response) => {
