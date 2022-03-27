@@ -22,7 +22,8 @@ class UsersQueueController extends Controller {
       update: '/queues/update/:id',
       remove: '/queues/remove/:id',
       userQueues: '/queues/user/:user_id',
-      listByName: '/queues/name/:name'
+      listByName: '/queues/user/:user_id/:name',
+      updateUserQueue: '/queues/user/:user_id/:name'
     })
   }
 
@@ -32,9 +33,9 @@ class UsersQueueController extends Controller {
         const { params } = request
         const data = await this.Model.show(params)
                 
-        return response
+        return response 
           .status(200)
-          .json({status: 200, data: data.rows[0] })
+          .json({status: 200, data: data.rows })
       } catch(error) {
         console.error(error.message)
         return response
@@ -50,7 +51,7 @@ class UsersQueueController extends Controller {
                 
         return response
           .status(200)
-          .json({status: 200, data: data.rows[0] })
+          .json({status: 200, data: data.rows })
       } catch(error) {
         console.error(error.message)
         return response
@@ -62,19 +63,20 @@ class UsersQueueController extends Controller {
     this.overrides(this.getRoute('store'))
     this.app.route(this.getRoute('store')).post(async (request, response) => {
       try {
-        console.log("Found the new one")
         const payload = request.body
         
-        const repeatedName = await this.Model.show({
+        const { rows: repeatedName } = await this.Model.show({
           user_id: payload.user_id,
           name: payload.name
         })
 
-        if(!!repeatedName) {
+        if(!!repeatedName.length) {
           return response
           .status(400)
           .json({status: 400, data: "You already have a playlist with the same name"})
         }
+
+        await this.Model.store(payload)
         
         return response
           .status(200)
