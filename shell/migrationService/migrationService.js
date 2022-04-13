@@ -1,4 +1,4 @@
-const Database = require(`../../infra/${process.env.DATABASE}/queries`)
+const Database = require(`../../database/infra/${process.env.DATABASE}/queries`)
 
 class MigrationService {
   constructor(migrationHistoryName) {

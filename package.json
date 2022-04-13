@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "migration": "node ./database/index.js",
-    "server": "node ./database/index.js runAll && nodemon index.js",
+    "migration": "node ./shell/migrationService/index.js",
+    "make": "node ./shell/fileService/index.js",
+    "server": "node ./shell/migrationService/index.js runAll && nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lucas Moura da Silva",

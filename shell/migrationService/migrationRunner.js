@@ -1,4 +1,4 @@
-const migrationList = require('../migrationList')
+const migrationList = require('../../database/migrations/migrationList')
 const MigrationService = require('./migrationService')
 
 class MigrationRunner {
