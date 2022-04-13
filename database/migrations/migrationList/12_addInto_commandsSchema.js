@@ -3,7 +3,7 @@ const Database = require(`../../infra/${process.env.DATABASE}/queries`)
 
 class AddintoCommandsschema {
   constructor() {
-    this.name = '11_addInto_commandsSchema'
+    this.name = '12_addInto_commandsSchema'
   }
   
   async up() {
@@ -12,11 +12,10 @@ class AddintoCommandsschema {
         callable,
         description,
         exec
-      ) 
-      VALUES (
-        '--add',
-        'Adds a new track into a specified playlist.\n Usage:\n  --add queue_name:queue: Appends the current queue into the specified saved queue.\n  --add queue_name:track_id: Searches for the specified track inside the current queue and appends it to the saved queue.',
-        '(args) => this.add(args)'
+      ) VALUES (
+        '--shuffle',
+        'Organizes current queue in a random order.',
+        '(args) => this.shuffle(args)'
       );
     `
 
@@ -25,10 +24,11 @@ class AddintoCommandsschema {
   
   async down() {
     const sql = `
-      DELETE FROM commands 
+      DELETE FROM commands
       WHERE callable IN (
-        '--add'
-    );`
+        '--shuffle'
+      );
+    `
 
     return await Database.raw(sql)
   }
