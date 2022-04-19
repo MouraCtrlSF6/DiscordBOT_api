@@ -1,1 +1,1 @@
-web: "node ./shell/migrationService/index.js runAll && node index.js",
+web: "node ./shell/migrationService/index.js runAll && node index.js"
