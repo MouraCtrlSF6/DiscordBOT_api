@@ -7,7 +7,7 @@
     "start": "nodemon index.js",
     "migration": "node ./shell/migrationService/index.js",
     "make": "node ./shell/fileService/index.js",
-    "server": "node ./shell/migrationService/index.js runAll && nodemon index.js",
+    "server": "node ./shell/migrationService/index.js runAll && node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lucas Moura da Silva",
